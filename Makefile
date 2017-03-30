@@ -4,6 +4,6 @@ init:
 simul: dummy
 	python simul/parental.py
 	python simul/rolemodel.py
-	python simul/random.py
+	python simul/randomlearn.py
 
 dummy:
