@@ -136,7 +136,7 @@ def simulate(repeat: int,
             ps = [learn(ps, probs, ks, eps, rho) for _ in range(agent)]
             pts.append(sum(calc_payoff(ps)) / agent)
 
-        print('K=%s - %dth simulation done' % (Ks, r))
+        print('K=%s - %dth simulation done' % (ks, r))
         if ax is not None:
             ax.plot(pts, ls='-', alpha=0.75)
 
@@ -148,7 +148,7 @@ def simulate(repeat: int,
         title = '%d Simulation' % repeat + ('s' if repeat > 1 else "") + \
                 ' with %d Agent' % agent + ('s' if agent > 1 else "")
         option = '%dx%d matrix, K=%s, eps=%f, rho=%f' % \
-                (size[0], [size[1], ks, eps, rho)
+                 (size[0], size[1], ks, eps, rho)
 
         ax.set_title(title + '\n' + option, fontweight='bold')
         ax.set_xlabel('Generation')
@@ -156,6 +156,6 @@ def simulate(repeat: int,
         ax.axis([0, generation, 0, min(size) + 1])
 
 
-Ksets= [[(1, 0, 0), (4, 0, 0), (7, 0, 0), (10, 0, 0)],
+Ksets = [[(1, 0, 0), (4, 0, 0), (7, 0, 0), (10, 0, 0)],
          [(0, 1, 0), (0, 4, 0), (0, 7, 0), (0, 10, 0)],
          [(0, 0, 1), (0, 0, 4), (0, 0, 7), (0, 0, 10)]]
