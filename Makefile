@@ -1,9 +1,12 @@
+PYTHON=python
+PIP=pip
+
+MODELS=$(wildcard tools/model_*.py)
+
 init:
-	pip install -r requirements.txt
+	$(PIP) install -r requirements.txt -q
 
-simul: dummy
-	python simul/parental.py
-	python simul/rolemodel.py
-	python simul/randomlearn.py
+test: $(MODELS)
+	$(PYTHON) $<
 
-dummy:
+all:
