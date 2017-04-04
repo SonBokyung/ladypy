@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
     plt.tight_layout()
 
-    output_dir = 'output'
+    output_dir = os.path.join('docs', 'output')
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
