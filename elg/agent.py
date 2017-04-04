@@ -1,11 +1,11 @@
 from .context import np
 
 def derive_P(A):
-    return (A.transpose() / A.sum(axis=1)).transpose()
+    return (A.T / A.sum(axis=1)).T
 
 
 def derive_Q(A):
-    return (A / A.sum(axis=0)).transpose()
+    return (A / A.sum(axis=0)).T
 
 
 class Agent:
