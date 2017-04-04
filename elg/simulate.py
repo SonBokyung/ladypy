@@ -18,7 +18,7 @@ def simulate(rep, gen, agent, size, ks, rho, eps=1e-2):
     """
     ret = []
 
-    for r in range(repeat):
+    for r in range(rep):
         ps = generate_agents(agent, size)
         pts = [sum(calc_payoff(ps)) / agent]
 

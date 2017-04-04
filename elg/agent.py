@@ -1,5 +1,11 @@
 from .context import np
-from .learn import derive_P, derive_Q
+
+def derive_P(A):
+    return (A.transpose() / A.sum(axis=1)).transpose()
+
+
+def derive_Q(A):
+    return (A / A.sum(axis=0)).transpose()
 
 
 class Agent:

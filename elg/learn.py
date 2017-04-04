@@ -3,14 +3,6 @@ from .agent import Agent
 from .sample import sample_from_P
 
 
-def derive_P(A):
-    return (A.transpose() / A.sum(axis=1)).transpose()
-
-
-def derive_Q(A):
-    return (A / A.sum(axis=0)).transpose()
-
-
 def learn(Bs, props, ks, eps, rho):
     k_prt, k_rol, k_rnd = ks
     n, m = Bs[0].P.shape
