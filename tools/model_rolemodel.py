@@ -24,4 +24,4 @@ if __name__ == '__main__':
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    plt.savefig(os.path.join(output_dir, 'output_parental.png'))
+    plt.savefig(os.path.join(output_dir, 'output_rolemodel.png'))
