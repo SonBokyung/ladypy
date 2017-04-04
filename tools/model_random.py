@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     for i, ax in enumerate(axes.flat):
         draw_simulated_graph(
-            ax, rep=10, gen=100, agent=100, size=(5, 5), ks=Ksets[2][i], rho=0)
+            ax, rep=10, gen=1000, agent=100, size=(5, 5), ks=Ksets[2][i], rho=0)
 
     plt.tight_layout()
 
