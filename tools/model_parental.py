@@ -45,4 +45,3 @@ if __name__ == '__main__':
         os.makedirs(output_dir)
 
     plt.savefig(os.path.join(output_dir, 'output_parental.png'))
->>>>>>> Changed the structure of the project
