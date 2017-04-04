@@ -1,5 +1,6 @@
 from .context import np
 
+
 def derive_P(A):
     return (A.T / A.sum(axis=1)).T
 
