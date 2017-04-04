@@ -11,3 +11,7 @@
 ## Random Learning
 
 ![](./output/output_random.png)
+
+# Miscellaneous
+
+![](./output/lecturer_rm.png)
