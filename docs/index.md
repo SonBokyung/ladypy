@@ -12,6 +12,10 @@
 
 ![](./output/output_random.png)
 
-# Miscellaneous
+# Misc.
+
+## Result of Another Implementation
+
+### Role Model Learning
 
 ![](./output/lecturer_rm.png)
