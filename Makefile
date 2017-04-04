@@ -7,6 +7,6 @@ init:
 	$(PIP) install -r requirements.txt -q
 
 test: $(MODELS)
-	$(PYTHON) $<
+	$(PYTHON) $^
 
 all:
