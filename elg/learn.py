@@ -4,7 +4,7 @@ from .sample import sample_from_P
 
 
 def learn(Bs, props, ks, eps, rho):
-    k_prt, k_rol, K_rol, k_rnd, K_rnd = ks
+    k_prt, K_rol, k_rol, K_rnd, k_rnd = ks
     n, m = Bs[0].P.shape
 
     A = np.zeros(Bs[0].P.shape)
