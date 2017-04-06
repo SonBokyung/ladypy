@@ -20,12 +20,12 @@ def simulate(rep, gen, agent, size, ks, rho, eps=1e-2):
 
     for r in range(rep):
         ps = generate_agents(agent, size)
-        pts = [sum(calc_payoff(ps)) / agent]
+        pts = [sum(calc_payoff_avg(ps)) / agent]
 
         for epoch in range(gen):
             probs = calc_probs(ps)
             ps = [learn(ps, probs, ks, eps, rho) for _ in range(agent)]
-            pts.append(sum(calc_payoff(ps)) / agent)
+            pts.append(sum(calc_payoff_avg(ps)) / agent)
 
         ret.append(pts)
         print('K=%s - %dth simulation done' % (ks, r))
