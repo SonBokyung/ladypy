@@ -12,22 +12,19 @@ def total_payoff(A, Agents):
 
 
 def calc_payoff(Agents):
-    return [payoff(A, A) for A in Agents]
+    return np.array([payoff(A, A) for A in Agents])
 
 
 def calc_payoff_total(Agents):
-    return [
+    return np.array([
         total_payoff(a, Agents[:i] + Agents[(i + 1):])
         for i, a in enumerate(Agents)
-    ]
+    ])
 
 
 def calc_payoff_avg(Agents):
-    l = len(Agents) - 1
-    return [val / l for val in calc_payoff_total(Agents)]
-
+    return calc_payoff_total(Agents) / (len(Agents) - 1)
 
 def calc_probs(Agents):
     tp = calc_payoff_total(Agents)
-    return tp / sum(tp)
-
+    return tp / tp.sum()

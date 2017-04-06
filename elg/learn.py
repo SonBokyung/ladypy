@@ -16,7 +16,7 @@ def learn(Bs, props, ks, eps, rho):
         A += sample_from_P(Bs[prt].P, k_prt, rho)
 
     if k_rol > 0 and K_rol > 0:
-        mdls = np.random.choice(idx, K_rol, p=np.array(props)[idx], replace=False)
+        mdls = np.random.choice(idx, K_rol, p=props[idx], replace=False)
         idx = np.setdiff1d(idx, mdls)
         for mdl in mdls:
             A += sample_from_P(Bs[mdl].P, k_rol, rho)
