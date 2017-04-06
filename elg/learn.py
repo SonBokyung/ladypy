@@ -7,7 +7,7 @@ def learn(Bs, props, ks, eps, rho):
     k_prt, K_rol, k_rol, K_rnd, k_rnd = ks
     n, m = Bs[0].P.shape
 
-    A = np.zeros(Bs[0].P.shape)
+    A = eps * np.ones(Bs[0].P.shape)
     idx = np.arange(len(Bs))
 
     if k_prt > 0:
@@ -26,7 +26,5 @@ def learn(Bs, props, ks, eps, rho):
         idx = np.setdiff1d(idx, rnds)
         for rnd in rnds:
             A += sample_from_P(Bs[rnd].P, k_rnd, rho)
-
-    A += eps * np.random.rand(n, m)
 
     return Agent(A)
