@@ -9,4 +9,7 @@ init:
 test: $(MODELS)
 	$(PYTHON) $^
 
+pep:
+	autopep8 . --recursive --in-place --pep8-passes 2000 --verbose
+
 all:
