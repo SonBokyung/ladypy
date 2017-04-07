@@ -25,6 +25,7 @@ def calc_payoff_total(Agents):
 def calc_payoff_avg(Agents):
     return calc_payoff_total(Agents) / (len(Agents) - 1)
 
+
 def calc_probs(Agents):
     tp = calc_payoff_total(Agents)
     return tp / tp.sum()
