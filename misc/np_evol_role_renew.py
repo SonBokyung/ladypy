@@ -2,17 +2,16 @@ import sys
 import os
 import logging as lg
 
-lg.basicConfig(stream=sys.stdout, level=lg.DEBUG,
-        format='%(asctime)s - %(message)s')
-lg_pad = ' ' * 2
-
 import numpy as np
 import numpy.random as r
 
 import matplotlib as mpl
-mpl.use('Agg')
-
 import matplotlib.pyplot as plt
+
+lg.basicConfig(stream=sys.stdout, level=lg.DEBUG,
+               format='%(asctime)s - %(message)s')
+lg_pad = ' ' * 2
+mpl.use('Agg')
 
 
 N_TRY = 1
