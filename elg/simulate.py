@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm, trange
 from .calc import derive_P_from, derive_Q_from, payoff_PQ
 from .sample import sample_response
 
@@ -42,25 +43,27 @@ class ELG(BaseSimulation):
 
     def _evolute(self, P, pr, K, eps, rho):
         A = eps * initialize_A(self.N_POP, self.N_OBJ, self.N_SIG)
-        idx = np.arange(self.N_POP)
 
-        if K['parent'] > 0:
-            i_prt = np.random.choice(idx, p=pr)
-            idx = np.delete(idx, i_prt)
-            A += sample_response(P[i_prt], K['parent'], rho)
+        for i in range(self.N_POP):
+            idx = np.arange(self.N_POP)
 
-        if K['rolemodel'] > 0:
-            pr_mdl = pr[idx] / pr[idx].sum()
-            i_mdls = np.random.choice(
-                idx, K['rolemodel'], p=pr_mdl, replace=False)
-            idx = np.setdiff1d(idx, i_mdls)
-            for i_mdl in i_mdls:
-                A += sample_response(P[i_mdl], 1, rho)
+            if K['parent'] > 0:
+                i_prt = np.random.choice(idx, p=pr)
+                idx = np.delete(idx, i_prt)
+                A[i] += sample_response(P[i_prt], K['parent'], rho)
 
-        if K['random'] > 0:
-            i_rnds = np.random.choice(idx, K['random'], replace=False)
-            for i_rnd in i_rnds:
-                A += sample_response(P[i_rnd], 1, rho)
+            if K['rolemodel'] > 0:
+                pr_mdl = pr[idx] / pr[idx].sum()
+                i_mdls = np.random.choice(
+                    idx, K['rolemodel'], p=pr_mdl, replace=False)
+                idx = np.setdiff1d(idx, i_mdls)
+                for i_mdl in i_mdls:
+                    A[i] += sample_response(P[i_mdl], 1, rho)
+
+            if K['random'] > 0:
+                i_rnds = np.random.choice(idx, K['random'], replace=False)
+                for i_rnd in i_rnds:
+                    A[i] += sample_response(P[i_rnd], 1, rho)
 
         return A
 
@@ -72,7 +75,7 @@ class ELG(BaseSimulation):
         eps = kargs.get('eps', 1e-3)
         rho = kargs.get('rho', None)
 
-        for trial in range(self.N_REP):
+        for trial in trange(1, self.N_REP + 1, desc='\u2514\u2500Trial'):
             track = np.zeros(self.N_GEN + 1)
 
             A = initialize_A(self.N_POP, self.N_OBJ, self.N_SIG)
@@ -84,7 +87,7 @@ class ELG(BaseSimulation):
 
             track[0] = po.sum() / self.N_POP
 
-            for epoch in range(1, self.N_GEN + 1):
+            for epoch in trange(1, self.N_GEN + 1, desc='  \u2514\u2500Epoch'):
                 A = self._evolute(P, prob, K, eps, rho)
                 P = derive_P_from(A)
                 Q = derive_Q_from(A)
