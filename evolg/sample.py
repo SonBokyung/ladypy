@@ -1,34 +1,28 @@
 import numpy as np
 
-__all__ = ['sample']
+__all__ = ['sample_response']
 
 
-def _sample_1d(p, l, k):
+def _sample_1d(pr, l, k):
     return np.bincount(
-        np.random.choice(l, k, p=p), minlength=l).astype(np.float)
+        np.random.choice(l, k, p=pr), minlength=l).astype(np.float)
 
 
-def _sample_1d_rho(p, l, k, rho):
+def _sample_1d_rho(pr, l, k, rho):
     return np.bincount(
         np.where(
-            np.random.random(l) > rho,
-            np.random.choice(l, k, p=p), np.random.choice(l, k)),
+            np.random.random(k) > rho,
+            np.random.choice(l, k, p=pr),
+            np.random.choice(l, k)),
         minlength=l).astype(np.float)
 
 
-def sample(P, k=1, rho=None):
-    """ Sample k responses from the given active matrix P.
-
-    >>> import numpy as np
-    >>> from evolg.calc import derive_P_from
-    >>> from evolg.sample import sample
-
-    >>> A = np.random.random((1, 2, 5))
-    >>> P = derive_P_from(A)
+def sample_response(p, k=1, rho=None):
+    """ Sample k responses from the given active matrix p.
     """
-    l = P.shape[2]
+    l = p.shape[1]
     if rho is None:
-        A = np.apply_along_axis(lambda x: _sample_1d(x, l, k), 2, P)
+        A = np.apply_along_axis(lambda x: _sample_1d(x, l, k), 1, p)
     else:
-        A = np.apply_along_axis(lambda x: _sample_1d_rho(x, l, k, rho), 2, P)
+        A = np.apply_along_axis(lambda x: _sample_1d_rho(x, l, k, rho), 1, p)
     return A.astype(np.float)
