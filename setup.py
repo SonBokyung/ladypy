@@ -1,17 +1,17 @@
 from setuptools import setup
 
 
-setup(name='elg',
+setup(name='elgpy',
       version='0.1',
       description='',
       long_description='',
       classifiers=[],
       keywords=[],
-      url='https://github.com/PluVian/elg-python',
+      url='https://github.com/PluVian/elgpy',
       author='PluVian',
       author_email='urisa12@gmail.com',
       license='MIT',
-      packages=['elg'],
+      packages=['elgpy'],
       install_requires=[
           'numpy',
           'tqdm',
