@@ -12,4 +12,19 @@ init:
 test: $(MODELS)
 	$(PYTHON) $^
 
-all:
+install:
+	$(PIP) install .
+
+install-symlink:
+	$(PIP) install -e .
+
+remove: uninstall
+
+uninstall:
+	$(PIP) uninstall elg -y
+
+reinstall: uninstall install
+
+reinstall-symlink: uninstall install-symlink
+
+all: init install
