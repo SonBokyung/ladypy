@@ -12,10 +12,4 @@ init:
 test: $(MODELS)
 	$(PYTHON) $^
 
-autopep8:
-	autopep8 . --recursive --in-place --pep8-passes 2000 --verbose
-
-flake8:
-	flake8 --ignore F401 .
-
 all:
