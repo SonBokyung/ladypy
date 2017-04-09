@@ -1,4 +1,5 @@
 from .context import np
+from tqdm import tqdm, trange
 from .agent import Agent
 from .calc import calc_payoff, calc_payoff_avg, calc_probs
 from .learn import learn
@@ -18,16 +19,15 @@ def simulate(rep, gen, agent, size, ks, rho, eps=1e-2):
     """
     ret = []
 
-    for r in range(rep):
+    for r in trange(rep, desc='Trial'):
         ps = generate_agents(agent, size)
         pts = [sum(calc_payoff_avg(ps)) / agent]
 
-        for epoch in range(gen):
+        for epoch in trange(gen, desc='Epoch'):
             probs = calc_probs(ps)
             ps = [learn(ps, probs, ks, eps, rho) for _ in range(agent)]
             pts.append(sum(calc_payoff_avg(ps)) / agent)
 
         ret.append(pts)
-        print('K=%s - %dth simulation done' % (ks, r))
 
     return ret
