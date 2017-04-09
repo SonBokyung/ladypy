@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from elg import simulate
+from ex_elg import simulate
 
 
 def draw_simulated_graph(ax, rep, gen, agent, size, ks, rho):
