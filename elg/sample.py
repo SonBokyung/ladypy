@@ -1,31 +1,28 @@
-from .context import np
-from .agent import Agent
+import numpy as np
+
+__all__ = ['sample_response']
 
 
-def sample_from_P_without_rho(P, k):
-    n, m = P.shape
-
-    rows = [np.random.choice(m, k, p=P[i, :]) for i in range(n)]
-
-    return np.concatenate([
-        np.bincount(row, minlength=m) for row in rows
-    ]).reshape(n, m).astype(np.float64)
+def _sample_1d(pr, l, k):
+    return np.bincount(
+        np.random.choice(l, k, p=pr), minlength=l).astype(np.float)
 
 
-def sample_from_P(P, k, rho):
-    if rho == 0:
-        return sample_from_P_without_rho(P, k)
-
-    n, m = P.shape
-
-    rows = [
+def _sample_1d_rho(pr, l, k, rho):
+    return np.bincount(
         np.where(
-            np.random.rand(k) > rho,
-            np.random.choice(m, k, p=P[i, :]),
-            np.random.choice(m, k))
-        for i in range(n)
-    ]
+            np.random.random(k) > rho,
+            np.random.choice(l, k, p=pr),
+            np.random.choice(l, k)),
+        minlength=l).astype(np.float)
 
-    return np.concatenate([
-        np.bincount(row, minlength=m) for row in rows
-    ]).reshape(n, m).astype(np.float64)
+
+def sample_response(p, k=1, rho=None):
+    """ Sample k responses from the given active matrix p.
+    """
+    l = p.shape[1]
+    if rho is None:
+        A = np.apply_along_axis(lambda x: _sample_1d(x, l, k), 1, p)
+    else:
+        A = np.apply_along_axis(lambda x: _sample_1d_rho(x, l, k, rho), 1, p)
+    return A.astype(np.float)
