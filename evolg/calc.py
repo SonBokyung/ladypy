@@ -10,10 +10,11 @@ def derive_P_from(A):
     """ Make an active matrix P with the given association matrix A.
 
     >>> import numpy as np
-    >>> from calc import derive_P_from
+    >>> from evolg.calc import derive_P_from
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
+
     >>> np.isclose(P.sum(axis=2), np.ones((100, 10))).sum()
     1000
     """
@@ -24,7 +25,7 @@ def derive_Q_from(A):
     """ Make a passive matrix Q with the given association matrix A.
 
     >>> import numpy as np
-    >>> from calc import derive_Q_from
+    >>> from evolg.calc import derive_Q_from
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> Q = derive_Q_from(A)
@@ -39,7 +40,7 @@ def payoff_PQ_self(P, Q):
     """ Calculate payoffs for each agent itself.
 
     >>> import numpy as np
-    >>> from calc import derive_P_from, derive_Q_from, payoff_PQ_self
+    >>> from evolg.calc import derive_P_from, derive_Q_from, payoff_PQ_self
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
@@ -55,7 +56,7 @@ def payoff_PQ(P, Q):
     """ Calculate average payoffs of each agent within the group.
 
     >>> import numpy as np
-    >>> from calc import derive_P_from, derive_Q_from, payoff_PQ
+    >>> from evolg.calc import derive_P_from, derive_Q_from, payoff_PQ
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
@@ -78,7 +79,8 @@ def payoff_self(A):
     """ Calculate payoffs for each agent itself.
 
     >>> import numpy as np
-    >>> from calc import derive_P_from, derive_Q_from, payoff_self
+    >>> from evolg import calc
+    >>> from evolg.calc import derive_P_from, derive_Q_from, payoff_self
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
@@ -94,11 +96,12 @@ def payoff(A):
     """ Calculate average payoffs of each agent within the group.
 
     :param A: Association matrices.
-    :type A: :class:`numpy.array`
+    :type A: :class:`numpy.ndarray`
 
     :Example:
     >>> import numpy as np
-    >>> from calc import derive_P_from, derive_Q_from, payoff
+    >>> from evolg import calc
+    >>> from evolg.calc import derive_P_from, derive_Q_from, payoff
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
