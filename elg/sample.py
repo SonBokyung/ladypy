@@ -20,9 +20,9 @@ def sample_from_P(P, k, rho):
 
     rows = [
         np.where(
-            np.random.rand(m) > rho,
-            np.random.choice(m, m, p=P[i, :]),
-            np.random.choice(m, m))
+            np.random.rand(k) > rho,
+            np.random.choice(m, k, p=P[i, :]),
+            np.random.choice(m, k))
         for i in range(n)
     ]
 
