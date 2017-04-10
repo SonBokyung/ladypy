@@ -4,10 +4,42 @@
 
 **LadyPy** is Python Library for simulating _Language Dynamics models_.
 
-## Requirements
+## Dependencies
 
-- `numpy`
-- `tqdm` for printing simulation progress
+The package depend on [`numpy`](http://www.numpy.org/), the numerical library for Python,
+and [`tqdm`](https://github.com/tqdm/tqdm) for an elegant progress bar support.
+
+## How to use
+
+### Install
+
+```bash
+make install
+# or
+pip install .
+```
+
+For an editable install, you can use commands as below:
+
+```bash
+make install-symlink
+# or
+pip install -e .
+```
+
+### Uninstall
+
+```bash
+make uninstall
+# or
+make remove
+# or
+pip uninstall ladypy
+```
+
+## Developments
+
+Read the following description: [Link](./development.md).
 
 ## Reference
 
