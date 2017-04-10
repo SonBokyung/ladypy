@@ -10,7 +10,7 @@ def derive_P_from(A):
     """ Make an active matrix P with the given association matrix A.
 
     >>> import numpy as np
-    >>> from elgpy.calc import derive_P_from
+    >>> from ladypy.calc import derive_P_from
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
@@ -25,7 +25,7 @@ def derive_Q_from(A):
     """ Make a passive matrix Q with the given association matrix A.
 
     >>> import numpy as np
-    >>> from elgpy.calc import derive_Q_from
+    >>> from ladypy.calc import derive_Q_from
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> Q = derive_Q_from(A)
@@ -40,7 +40,7 @@ def payoff_PQ_self(P, Q):
     """ Calculate payoffs for each agent itself.
 
     >>> import numpy as np
-    >>> from elgpy.calc import derive_P_from, derive_Q_from, payoff_PQ_self
+    >>> from ladypy.calc import derive_P_from, derive_Q_from, payoff_PQ_self
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
@@ -56,7 +56,7 @@ def payoff_PQ(P, Q):
     """ Calculate average payoffs of each agent within the group.
 
     >>> import numpy as np
-    >>> from elgpy.calc import derive_P_from, derive_Q_from, payoff_PQ
+    >>> from ladypy.calc import derive_P_from, derive_Q_from, payoff_PQ
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
@@ -79,7 +79,7 @@ def payoff_self(A):
     """ Calculate payoffs for each agent itself.
 
     >>> import numpy as np
-    >>> from elgpy.calc import derive_P_from, derive_Q_from, payoff_self
+    >>> from ladypy.calc import derive_P_from, derive_Q_from, payoff_self
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)
@@ -99,7 +99,7 @@ def payoff(A):
 
     :Example:
     >>> import numpy as np
-    >>> from elgpy.calc import derive_P_from, derive_Q_from, payoff
+    >>> from ladypy.calc import derive_P_from, derive_Q_from, payoff
 
     >>> A = np.random.random(size=(100, 10, 10))
     >>> P = derive_P_from(A)

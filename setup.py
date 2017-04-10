@@ -1,17 +1,17 @@
 from setuptools import setup
 
 
-setup(name='elgpy',
+setup(name='ladypy',
       version='0.1',
       description='',
       long_description='',
       classifiers=[],
       keywords=[],
-      url='https://github.com/PluVian/elgpy',
+      url='https://github.com/PluVian/ladypy',
       author='PluVian',
       author_email='urisa12@gmail.com',
       license='MIT',
-      packages=['elgpy'],
+      packages=['ladypy'],
       install_requires=[
           'numpy',
           'tqdm',

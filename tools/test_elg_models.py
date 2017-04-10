@@ -5,7 +5,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm, trange
-from elgpy.simulate import ELG
+from ladypy.simulate import ELG
 
 N_REP = 20
 N_GEN = 100
