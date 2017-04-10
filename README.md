@@ -19,14 +19,6 @@ make install
 pip install .
 ```
 
-For an editable install, you can use commands as below:
-
-```bash
-make install-symlink
-# or
-pip install -e .
-```
-
 ### Uninstall
 
 ```bash
@@ -36,10 +28,6 @@ make remove
 # or
 pip uninstall ladypy
 ```
-
-## Developments
-
-Read the following description: [Link](./development.md).
 
 ## Reference
 
