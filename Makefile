@@ -21,7 +21,7 @@ install-symlink:
 remove: uninstall
 
 uninstall:
-	$(PIP) uninstall elg -y
+	$(PIP) uninstall ladypy -y
 
 reinstall: uninstall install
 
