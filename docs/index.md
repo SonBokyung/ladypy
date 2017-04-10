@@ -20,12 +20,3 @@
 
 ![](./output/output_random.png)
 
-# Misc.
-
-## Result of Another Implementation
-
-The code is on [the link](https://github.com/PluVian/elg-python/blob/master/misc/np_evol_role_renew.py).
-
-### Role Model Learning
-
-![](./output/lecturer_rm.png)
