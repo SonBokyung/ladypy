@@ -17,9 +17,9 @@ def generate_conf(**kargs):
         'sig': kargs.get('sig', 5),
         'k_par': kargs.get('k_par', 0),
         'K_rol': kargs.get('K_rol', 0),
-        'k_rol': kargs.get('k_rol', 1),
+        'k_rol': kargs.get('k_rol', 0),
         'K_rnd': kargs.get('K_rnd', 0),
-        'k_rnd': kargs.get('k_rnd', 1),
+        'k_rnd': kargs.get('k_rnd', 0),
         'eps': kargs.get('eps', 1e-3),
         'rho': kargs.get('rho', 0)
     }
@@ -54,7 +54,25 @@ if __name__ == '__main__':
     fig.set_size_inches(12, 10)
 
     for i, ax in enumerate(axes.flat):
-        draw_simulated_graph(ax, generate_conf(K_rol=3 * i + 1))
+        draw_simulated_graph(ax, generate_conf(gen=100, k_par=3 * i + 1))
 
     plt.tight_layout()
-    plt.savefig('output_test3.png')
+    plt.savefig('output_1.png')
+
+    fig, axes = plt.subplots(nrows=2, ncols=2)
+    fig.set_size_inches(12, 10)
+
+    for i, ax in enumerate(axes.flat):
+        draw_simulated_graph(ax, generate_conf(K_rol=3 * i + 1, k_rol=1))
+
+    plt.tight_layout()
+    plt.savefig('output_2.png')
+
+    fig, axes = plt.subplots(nrows=2, ncols=2)
+    fig.set_size_inches(12, 10)
+
+    for i, ax in enumerate(axes.flat):
+        draw_simulated_graph(ax, generate_conf(K_rnd=3 * i + 1, k_rnd=1))
+
+    plt.tight_layout()
+    plt.savefig('output_3.png')
