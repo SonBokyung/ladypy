@@ -2,8 +2,8 @@ from setuptools import setup
 
 
 setup(name='ladypy',
-      version='0.1',
-      description='',
+      version='alpha',
+      description='Python library for simulating models of Language Dynamics',
       long_description='',
       classifiers=[],
       keywords=[],
