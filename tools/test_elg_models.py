@@ -10,6 +10,23 @@ from tqdm import tqdm, trange
 from ladypy.model import ELG
 
 
+def generate_conf(**kargs):
+    return {
+        'rep': kargs.get('rep', 20),
+        'gen': kargs.get('gen', 1000),
+        'pop': kargs.get('pop', 100),
+        'obj': kargs.get('obj', 5),
+        'sig': kargs.get('sig', 5),
+        'k_par': kargs.get('k_par', 0),
+        'K_rol': kargs.get('K_rol', 0),
+        'k_rol': kargs.get('k_rol', 1),
+        'K_rnd': kargs.get('K_rnd', 0),
+        'k_rnd': kargs.get('k_rnd', 1),
+        'eps': kargs.get('eps', 1e-3),
+        'rho': kargs.get('rho', 0)
+    }
+
+
 def draw_simulated_graph(ax, conf):
     sim = ELG(**conf)
 
@@ -39,18 +56,7 @@ if __name__ == '__main__':
     fig.set_size_inches(12, 10)
 
     for i, ax in enumerate(axes.flat):
-        draw_simulated_graph(ax, {
-            'rep': 20,
-            'gen': 1000,
-            'pop': 100,
-            'obj': 5,
-            'sig': 5,
-            'k_par': 0,
-            'K_rol': 3 * i + 1,
-            'k_rol': 1,
-            'K_rnd': 0,
-            'k_rnd': 0,
-        })
+        draw_simulated_graph(ax, generate_conf(K_rol=3 * i + 1))
 
     plt.tight_layout()
     plt.savefig('output_test3.png')
