@@ -1,6 +1,4 @@
-import sys
-import os
-
+from __future__ import print_function, division, unicode_literals
 import numpy as np
 import matplotlib as mpl
 mpl.use('Agg')
