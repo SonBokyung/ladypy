@@ -1,3 +1,4 @@
+from __future__ import division, absolute_import
 import numpy as np
 from tqdm import tqdm, trange
 from .calc import derive_P_from, derive_Q_from, payoff_PQ

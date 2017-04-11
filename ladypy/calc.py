@@ -1,3 +1,4 @@
+from __future__ import division, absolute_import
 import numpy as np
 
 __all__ = [
