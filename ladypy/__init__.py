@@ -1,8 +1,8 @@
 from . import calc
 from . import sample
-from . import simulate
+from . import model
 
 __all__ = []
 __all__.extend(calc.__all__)
 __all__.extend(sample.__all__)
-__all__.extend(simulate.__all__)
+__all__.extend(model.__all__)
