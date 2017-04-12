@@ -1,22 +1,16 @@
 # Simulation Output
 
-- Implementation: [Link](https://github.com/PluVian/elg-python/tree/master/elg)
+## ELG
 
-## Parental Learning
+### Parental Learning
 
-- Test code: [Link](https://github.com/PluVian/elg-python/blob/master/tools/model_parental.py)
+![](./img/elg_parental.png)
 
-![](./output/output_parental.png)
+### Role Model Learning
 
-## Role Model Learning
+![](./img/elg_rolemodel.png)
 
-- Test code: [Link](https://github.com/PluVian/elg-python/blob/master/tools/model_rolemodel.py)
+### Random Learning
 
-![](./output/output_rolemodel.png)
-
-## Random Learning
-
-- Test code: [Link](https://github.com/PluVian/elg-python/blob/master/tools/model_random.py)
-
-![](./output/output_random.png)
+![](./img/elg_random.png)
 
