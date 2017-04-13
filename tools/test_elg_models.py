@@ -1,4 +1,6 @@
 from __future__ import print_function, division, unicode_literals
+from builtins import input
+
 import numpy as np
 import matplotlib as mpl
 mpl.use('Agg')
@@ -8,10 +10,8 @@ from tqdm import tqdm, trange
 from ladypy.model import ELG
 
 
-def generate_conf(**kargs):
+def mk_conf(**kargs):
     return {
-        'rep': kargs.get('rep', 20),
-        'gen': kargs.get('gen', 1000),
         'pop': kargs.get('pop', 100),
         'obj': kargs.get('obj', 5),
         'sig': kargs.get('sig', 5),
@@ -25,12 +25,16 @@ def generate_conf(**kargs):
     }
 
 
-def draw_simulated_graph(ax, conf):
-    sim = ELG(**conf)
+def draw_simulated_graph(ax, rep, gen, conf):
+    mdl = ELG(**conf)
 
-    for rep in trange(conf['rep'], desc='Trial'):
-        A, result = sim.run()
-        ax.plot(result, ls='-', alpha=.5)
+    for _ in trange(rep, desc='Trial'):
+        mdl.initialize()
+        dat = [mdl.fitness()]
+        for _ in trange(gen, desc='Epoch'):
+            mdl.evolve()
+            dat.append(mdl.fitness())
+        ax.plot(dat, ls='-', alpha=.5)
 
     for h in range(1, min(conf['obj'], conf['sig']) + 1):
         ax.axhline(h, ls='dotted', c='k', alpha=.25)
@@ -39,40 +43,49 @@ def draw_simulated_graph(ax, conf):
         ('{rep} Simulations with {pop} Agents\n'
          '{obj}x{sig} matrix P, '
          'K=({k_par}, {K_rol}, {k_rol}, {K_rnd}, {k_rnd}), '
-         'rho={rho}').format(**conf)
+         'rho={rho}').format(rep=rep, **conf)
 
     ax.set_title(title, fontweight='bold')
     ax.set_xlabel('Generation')
     ax.set_ylabel('Payoff')
-    ax.axis([0, conf['gen'], 0, min(conf['obj'], conf['sig']) + 1])
-
-    return A
+    ax.axis([0, gen, 0, min(conf['obj'], conf['sig']) + 1])
 
 
 if __name__ == '__main__':
-    fig, axes = plt.subplots(nrows=2, ncols=2)
-    fig.set_size_inches(12, 10)
+    tqdm.write('Run the simulation about parental learning [y/N]: ', end='')
+    ans = input().lower()
+    if ans == 'y' or ans == 'yes':
+        fig, axes = plt.subplots(nrows=2, ncols=2)
+        fig.set_size_inches(12, 10)
 
-    for i, ax in enumerate(axes.flat):
-        draw_simulated_graph(ax, generate_conf(gen=100, k_par=3 * i + 1))
+        for i, ax in enumerate(axes.flat):
+            draw_simulated_graph(ax, 20, 100, mk_conf(k_par=3 * i + 1))
 
-    plt.tight_layout()
-    plt.savefig('output_1.png')
+        plt.tight_layout()
+        plt.savefig('output_1.png')
 
-    fig, axes = plt.subplots(nrows=2, ncols=2)
-    fig.set_size_inches(12, 10)
+    tqdm.write('Run the simulation about role model learning [y/N]: ', end='')
+    ans = input().lower()
+    if ans == 'y' or ans == 'yes':
+        fig, axes = plt.subplots(nrows=2, ncols=2)
+        fig.set_size_inches(12, 10)
 
-    for i, ax in enumerate(axes.flat):
-        draw_simulated_graph(ax, generate_conf(K_rol=3 * i + 1, k_rol=1))
+        for i, ax in enumerate(axes.flat):
+            draw_simulated_graph(ax, 20, 1000,
+                                 mk_conf(K_rol=3 * i + 1, k_rol=1))
 
-    plt.tight_layout()
-    plt.savefig('output_2.png')
+        plt.tight_layout()
+        plt.savefig('output_2.png')
 
-    fig, axes = plt.subplots(nrows=2, ncols=2)
-    fig.set_size_inches(12, 10)
+    tqdm.write('Run the simulation about random learning [y/N]: ', end='')
+    ans = input().lower()
+    if ans == 'y' or ans == 'yes':
+        fig, axes = plt.subplots(nrows=2, ncols=2)
+        fig.set_size_inches(12, 10)
 
-    for i, ax in enumerate(axes.flat):
-        draw_simulated_graph(ax, generate_conf(K_rnd=3 * i + 1, k_rnd=1))
+        for i, ax in enumerate(axes.flat):
+            draw_simulated_graph(ax, 20, 1000,
+                                 mk_conf(K_rnd=3 * i + 1, k_rnd=1))
 
-    plt.tight_layout()
-    plt.savefig('output_3.png')
+        plt.tight_layout()
+        plt.savefig('output_3.png')
