@@ -15,6 +15,7 @@ setup(
     packages=['ladypy'],
     install_requires=[
         'numpy',
+        'numba'
     ],
     include_package_data=True,
     zip_safe=False)
