@@ -2,12 +2,12 @@ from __future__ import print_function, division, unicode_literals
 from builtins import input
 
 import numpy as np
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 from tqdm import tqdm, trange
 from ladypy.model import ELG
-
-plt.ioff()  # Disable interactive mode of matplotlib.
 
 
 def mk_conf(**kargs):
