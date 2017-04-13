@@ -113,7 +113,7 @@ if ans == 'y' or ans == 'yes':
     fig.set_size_inches(12, 10)
 
     for i, ax in enumerate(axes.flat):
-        draw_simul(ax, 20, 600,
+        draw_simul(ax, 20, 1000,
                    mk_conf(K_rnd=1, k_rnd=1, rho=(1e-5 * 10 ** i)))
 
     plt.tight_layout(True)
