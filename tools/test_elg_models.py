@@ -2,8 +2,6 @@ from __future__ import print_function, division, unicode_literals
 from builtins import input
 
 import numpy as np
-import matplotlib as mpl
-mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 from tqdm import tqdm, trange
@@ -61,7 +59,7 @@ if __name__ == '__main__':
         for i, ax in enumerate(axes.flat):
             draw_simulated_graph(ax, 20, 100, mk_conf(k_par=3 * i + 1))
 
-        plt.tight_layout()
+        plt.tight_layout(True)
         plt.savefig('output_1.png')
 
     tqdm.write('Run the simulation about role model learning [y/N]: ', end='')
@@ -74,7 +72,7 @@ if __name__ == '__main__':
             draw_simulated_graph(ax, 20, 1000,
                                  mk_conf(K_rol=3 * i + 1, k_rol=1))
 
-        plt.tight_layout()
+        plt.tight_layout(True)
         plt.savefig('output_2.png')
 
     tqdm.write('Run the simulation about random learning [y/N]: ', end='')
@@ -84,8 +82,8 @@ if __name__ == '__main__':
         fig.set_size_inches(12, 10)
 
         for i, ax in enumerate(axes.flat):
-            draw_simulated_graph(ax, 20, 1000,
+            draw_simulated_graph(ax, 1, 5000,
                                  mk_conf(K_rnd=3 * i + 1, k_rnd=1))
 
-        plt.tight_layout()
+        plt.tight_layout(True)
         plt.savefig('output_3.png')
