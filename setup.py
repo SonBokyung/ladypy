@@ -14,7 +14,6 @@ setup(name='ladypy',
       packages=['ladypy'],
       install_requires=[
           'numpy',
-          'tqdm',
       ],
       include_package_data=True,
       zip_safe=False)
