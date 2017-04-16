@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Log folder
+log/
+
+# Output foler
+out/

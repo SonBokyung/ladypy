@@ -1,5 +1,6 @@
 from __future__ import print_function, division, unicode_literals
 import sys
+import os
 
 import numpy as np
 import matplotlib as mpl
@@ -8,8 +9,6 @@ import matplotlib.pyplot as plt
 
 from tqdm import tqdm, trange
 from ladypy.model import ELG
-
-flog = open('log.txt', 'w')
 
 
 def mk_conf(**kargs):
@@ -25,7 +24,7 @@ def mk_conf(**kargs):
     }
 
 
-def draw_simul(ax, rep, gen, conf):
+def draw_simul(ax, rep, gen, conf, flog=sys.stdout):
     mdl = ELG(**conf)
 
     for _ in trange(rep, desc='Trial', file=flog):
@@ -53,28 +52,49 @@ def draw_simul(ax, rep, gen, conf):
     ax.axis([0, gen, 0, min(conf['obj'], conf['sig']) + 1])
 
 
-if len(sys.argv) == 1:
-    print('No argument for simulation type.')
-    flog.close()
-    exit(-1)
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print('No argument for simulation type.')
+        exit(-1)
 
-ans = int(sys.argv[1])
-if 1 <= ans <= 5:
+    ans = int(sys.argv[1])
+
+    if not (1 <= ans <= 5):
+        print('Invalid argument for simulation type.')
+        exit(-1)
+
+    dir_root = os.path.realpath(
+        os.path.join(os.path.dirname(__file__), '..'))
+
+    dir_log = os.path.join(dir_root, 'log')
+    if not os.path.exists(dir_log):
+        os.mkdir(dir_log)
+
+    fname_log = os.path.join(dir_log, str(ans) + '.log')
+    flog = open(fname_log, 'w')
+
     fig, axes = plt.subplots(nrows=2, ncols=2)
     fig.set_size_inches(12, 10)
 
     for i, ax in enumerate(tqdm(axes.flat, desc='Chart', file=flog)):
         if ans == 1:
-            draw_simul(ax, 20, 100, mk_conf(k_par=3 * i + 1))
+            draw_simul(ax, 1, 100, mk_conf(k_par=3 * i + 1), flog)
         elif ans == 2:
-            draw_simul(ax, 20, 1000, mk_conf(k_rol=3 * i + 1))
+            draw_simul(ax, 20, 1000, mk_conf(k_rol=3 * i + 1), flog)
         elif ans == 3:
-            draw_simul(ax, 20, 5000, mk_conf(k_rnd=3 * i + 1))
+            draw_simul(ax, 20, 5000, mk_conf(k_rnd=3 * i + 1), flog)
         elif ans == 4:
-            draw_simul(ax, 20, 600, mk_conf(k_par=1, rho=(1e-4 * 10 ** i)))
+            draw_simul(ax, 20, 600, mk_conf(k_par=1, rho=(1e-4 * 10**i)), flog)
         else:
-            draw_simul(ax, 20, 1000, mk_conf(k_rnd=1, rho=(1e-5 * 10 ** i)))
+            draw_simul(ax, 20, 1000, mk_conf(k_rnd=1, rho=(1e-5 * 10**i)),
+                       flog)
 
     plt.tight_layout(True)
-    plt.savefig('output_' + str(ans) + '.png')
-flog.close()
+
+    dir_out = os.path.join(dir_root, 'out')
+    if not os.path.exists(dir_out):
+        os.mkdir(dir_out)
+
+    fname_out = os.path.join(dir_out, str(ans) + '.png')
+    plt.savefig(fname_out)
+    flog.close()
