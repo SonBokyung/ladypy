@@ -7,7 +7,7 @@
 ## Dependencies
 
 The package depend on [`numpy`](http://www.numpy.org/), the numerical library for Python,
-and [`tqdm`](https://github.com/tqdm/tqdm) for an elegant progress bar support.
+and `numba`, python optimization library.
 
 ## How to use
 
