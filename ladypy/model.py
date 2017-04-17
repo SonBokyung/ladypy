@@ -1,6 +1,6 @@
 from __future__ import division, absolute_import
 import numpy as np
-from .calc import derive_P_from, derive_Q_from, payoff
+from .calc import derive_P_from, derive_Q_from, payoff, payoff_avg
 from .sample import sample_response
 
 __all__ = ['ELG']
@@ -69,7 +69,54 @@ class ELG:
         self.A = An
         self.P = derive_P_from(An)
         self.Q = derive_Q_from(An)
+        self.payoff = payoff_avg(self.P, self.Q)
+
+    def fitness(self):
+        return self.payoff.sum() / self.N_POP
+
+
+class GLG(ELG):
+    def __init__(self, pop=100, obj=5, sig=5, k_obs=0, k_smp=0, rho=0.):
+        self.N_POP = pop
+        self.N_OBJ = obj
+        self.N_SIG = sig
+        self.K_OBS = k_obs
+        self.K_SMP = k_smp
+        self.RHO = rho
+
+        self.initialize()
+
+    def initialize(self):
+        """ Initialize agents in the model with random values.
+        """
+        self.A = np.random.random((self.N_POP, self.N_OBJ, self.N_SIG))
+        self.P = derive_P_from(self.A)
+        self.Q = derive_Q_from(self.A)
+        self.D = np.random.random((self.N_POP, self.N_POP))
         self.payoff = payoff(self.P, self.Q)
+
+    def talk(self):
+        """ Generate new child epoch with the current epoch.
+        """
+        pr = self.payoff / self.payoff.sum()
+
+        An = np.zeros(size=(self.N_POP, self.N_OBJ, self.N_SIG))
+        Dn = np.zeros(size=(self.N_POP, self.N_POP))
+
+        for i in range(self.N_POP):
+            j_mdls = np.random.choice(self.N_POP, self.K_SMP, False, pr)
+
+            for j in j_mdls:
+                tmp = sample_response(self.P[j], self.N_SIG, self.K_OBS,
+                                      self.RHO)
+                An[i] += tmp * self.D[i, j]
+                An[j] += tmp * self.D[j, i]
+
+        self.A += An
+        self.P = derive_P_from(self.A)
+        self.Q = derive_Q_from(self.A)
+        self.D += Dn
+        self.payoff = payoff_avg(self.P, self.Q)
 
     def fitness(self):
         return self.payoff.sum() / self.N_POP

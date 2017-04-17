@@ -3,7 +3,7 @@ import numpy as np
 from numba import jit, autojit
 
 __all__ = [
-    'derive_P_from', 'derive_Q_from', 'payoff'
+    'derive_P_from', 'derive_Q_from', 'payoff', 'payoff_avg'
 ]
 
 
@@ -41,6 +41,11 @@ def derive_Q_from(A):
 
 @autojit
 def payoff(P, Q):
+    return np.einsum('ijk,ljk->il', P, Q)
+
+
+@autojit
+def payoff_avg(P, Q):
     """ Calculate average payoffs of each agent within the group.
 
     >>> import numpy as np
@@ -59,5 +64,5 @@ def payoff(P, Q):
     >>> all(np.isclose(payoff_PQ(P, Q), cmp))
     True
     """
-    PQ = np.einsum('ijk,ljk->il', P, Q)
+    PQ = payoff(P, Q)
     return 0.5 * (PQ.mean(axis=0) + PQ.mean(axis=1))
