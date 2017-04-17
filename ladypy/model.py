@@ -1,6 +1,7 @@
 from __future__ import division, absolute_import
 import numpy as np
-from .calc import derive_P_from, derive_Q_from, payoff, payoff_avg
+from .calc import (derive_P_from, derive_Q_from, payoff, payoff_avg,
+                   cross_entropy)
 from .sample import sample_response
 
 __all__ = ['ELG']
@@ -109,13 +110,13 @@ class GLG(ELG):
             for j in j_mdls:
                 tmp = sample_response(self.P[j], self.N_SIG, self.K_OBS,
                                       self.RHO)
-                An[i] += tmp * self.D[i, j]
-                An[j] += tmp * self.D[j, i]
+                An[i] += tmp / self.D[i, j]
+                An[j] += tmp / self.D[j, i]
 
         self.A += An
         self.P = derive_P_from(self.A)
         self.Q = derive_Q_from(self.A)
-        self.D += Dn
+        self.D = cross_entropy(self.P, self.Q)
         self.payoff = payoff_avg(self.P, self.Q)
 
     def fitness(self):

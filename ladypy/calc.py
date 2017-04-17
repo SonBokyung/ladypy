@@ -3,7 +3,7 @@ import numpy as np
 from numba import jit, autojit
 
 __all__ = [
-    'derive_P_from', 'derive_Q_from', 'payoff', 'payoff_avg'
+    'derive_P_from', 'derive_Q_from', 'payoff', 'payoff_avg', 'cross_entropy'
 ]
 
 
@@ -66,3 +66,8 @@ def payoff_avg(P, Q):
     """
     PQ = payoff(P, Q)
     return 0.5 * (PQ.mean(axis=0) + PQ.mean(axis=1))
+
+
+@autojit
+def cross_entropy(P, Q):
+    return np.einsum('aji,bji->abj', P, -1 * np.log(Q)).mean(axis=2)
